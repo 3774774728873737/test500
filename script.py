@@ -1,9 +1,8 @@
-import socket
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 app = FastAPI()
 
-@app.get("/api_address")
-async def get_api_address():
-    """Gets the API address."""
-    return {"api_address": socket.gethostbyname(socket.gethostname())}
+@app.get("/")
+async def read_root(request: Request):
+    client_host = request.client.host
+    return {"client_host": client_host}
